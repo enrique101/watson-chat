@@ -19,7 +19,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(helmet());
-app.use(cors());
 
 const router = express.Router();
 app.use('/api', router);
@@ -53,7 +52,7 @@ router.route('/contact', cors(corsOpt))
 const server = http.createServer(app);
 
 const io = socketIO(server);
-io.origins([process.env.FRONTEND_URL]);
+io.origins(process.env.FRONTEND_URL);
 
 io.on('connection', socket =>{
     "use strict"
