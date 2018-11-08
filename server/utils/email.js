@@ -13,7 +13,7 @@ const sendEmail = async (name,email, text) =>{
   "use strict"
     return await new Promise((resolve,reject)=>{
       transport.sendMail({
-            from: 'enrique.raspberry@gmail.com',
+            from: email,
             to: 'enrique.acuna@gmail.com',
             subject: `Mensaje de ${name}`,
             html: `<p>Name: ${name}</p><p>Email: ${email}</p><p>${text.replace(/[\r\n]/g, "<br />")}<p/>`,
