@@ -38,7 +38,7 @@ router.route('/contact')
         email = email.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
         text = text.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
         if(email !== '' && emailRegex.test(email) && text !== '' && name !== ''){
-            result = sendEmail(name, email, text).catch(e => {result = e;});
+            //result = sendEmail(name, email, text).catch(e => {result = e;});
         }
         else{
             result = {
