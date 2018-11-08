@@ -5,6 +5,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const  bodyParser = require('body-parser');
 const helmet = require('helmet');
+const cors = require('cors');
 const { sendEmail } = require('./utils/email');
 const { message } = require('./utils/watson');
 const { isValidString } = require('./utils/validators');
@@ -19,11 +20,9 @@ app.use(bodyParser.json());
 
 app.use(helmet());
 
-app.all('/', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
-   });
+app.use(cors({
+    origin: process.env.FRONTEND_URL
+  }));
 
 const router = express.Router();
 app.use('/api', router);
@@ -38,7 +37,7 @@ router.route('/contact')
         email = email.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
         text = text.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
         if(email !== '' && emailRegex.test(email) && text !== '' && name !== ''){
-            //result = sendEmail(name, email, text).catch(e => {result = e;});
+            result = sendEmail(name, email, text).catch(e => {result = e;});
         }
         else{
             result = {
