@@ -1,6 +1,5 @@
 const path = require('path');
 const http = require('http');
-const cors = require('cors');
 require('dotenv').config({ path: '.env' });
 const express = require('express');
 const socketIO = require('socket.io');
@@ -23,7 +22,11 @@ app.use(helmet());
 const router = express.Router();
 app.use('/api', router);
 
-app.use(cors());
+app.all('/api', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", `${process.env.FRONTEND_URL}`);
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+   });
 
 router.route('/contact')
     .post((req,res) => {
