@@ -52,7 +52,7 @@ router.route('/contact', cors(corsOpt))
 const server = http.createServer(app);
 
 const io = socketIO(server);
-io.origins(process.env.FRONTEND_URL);
+io.origins(`${process.env.FRONTEND_URL}:${process.env.FRONTEND_PORT}`);
 
 io.on('connection', socket =>{
     "use strict"
