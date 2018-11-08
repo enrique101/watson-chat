@@ -19,14 +19,14 @@ app.use(bodyParser.json());
 
 app.use(helmet());
 
-const router = express.Router();
-app.use('/api', router);
-
-app.all('/api', function(req, res, next) {
+app.all('/', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", `${process.env.FRONTEND_URL}`);
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
    });
+
+const router = express.Router();
+app.use('/api', router);
 
 router.route('/contact')
     .post((req,res) => {
