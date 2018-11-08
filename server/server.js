@@ -23,12 +23,9 @@ app.use(helmet());
 const router = express.Router();
 app.use('/api', router);
 
-const corsOpt = {
-    origin: process.env.FRONTEND_URL,
-    optionsSuccessStatus: 200
-  }
+app.use(cors());
 
-router.route('/contact', cors(corsOpt))
+router.route('/contact')
     .post((req,res) => {
         "use strict"
         const emailRegex = new RegExp('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$');
